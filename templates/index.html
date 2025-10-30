@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="grid"></div>
+
+<form action="/calidades" method="post">
+  <div id="main">
+    <input placeholder="Ingresa URL de YouTube..." type="text" name="url" class="input" required />
+    <button id="calidades-btn" type="submit">Calidades</button>
+  </div>
+  
+  <div class="calidades">
+    {% if miniatura %}
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video_info.video_url.split('=')[1] }}" frameborder="0" allowfullscreen></iframe>
+    {% endif %} 
+  </div>
+
+</form>
+
+
+<div class="tabla-calidades-container">
+    <h3 id="calidades">Calidades disponibles</h3>
+    <table class="tabla-calidades">
+        <thead>
+            <tr>
+                <th>Itag</th>
+                <th>Resolución</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for calidad in calidades %}
+            <tr>
+                <td>{{ itag[loop.index0] }}</td>
+                <td>{{ calidad }}</td>
+                <td>
+                  <form method="post" action="{{ '/shorts' if es_short else '/descargar' }}">
+                      <input type="hidden" name="url" value="{{ url }}">
+                      <input type="hidden" name="itag" value="{{ itag[loop.index0] }}">
+                      <button type="submit">Descargar</button>
+                  </form>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+              <td>
+                <form action="/audio" method="post"><input type="hidden" name="url" value="{{ request.form.get('url') }}">
+                  <button type="submit" id="descargar-audio">Descargar Audio</button>
+                </form>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

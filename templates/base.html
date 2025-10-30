@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube Downlader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <h1 id="titulo">Youtube Downloader</h1>
+        <button onclick="toggleDarkMode()" id="dark-mode-toggle">Toggle dark mode</button>
+    </header>
+    {% block body %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/button.js')}}"></script>
+</body>
+</html>
